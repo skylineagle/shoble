@@ -22,8 +22,8 @@ export async function tcpQuery(host: string, port: number, query: string): Promi
           const newlineIdx = buffer.indexOf("\n");
           if (newlineIdx !== -1) {
             const response = buffer.slice(0, newlineIdx);
-            _socket.end();
             settle(() => resolve(response));
+            _socket.end();
           }
         },
         close(_socket) {

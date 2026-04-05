@@ -53,11 +53,26 @@ cp .env.example .env
 
 The defaults work out of the box for local dev. Edit `.env` if you need to change ports or credentials.
 
-### 3. Start PocketBase and n8n
+### 3. Build custom n8n nodes and start PocketBase + n8n
+
+Custom nodes are loaded from `packages/n8n-nodes` via bind mounts (no Docker image rebuild when you change them). The repo’s `node_modules` is mounted as well so Bun’s workspace symlinks for `pocketbase` resolve inside the container. Use Compose Watch so n8n **restarts automatically** when `dist/` updates after TypeScript compiles.
+
+Terminal A — compile nodes on every save:
 
 ```sh
-docker compose up
+bun run dev:nodes
 ```
+
+Terminal B — first compile once if `dist/` is empty, then start the stack with file watch:
+
+```sh
+bun run build:nodes
+docker compose up --watch
+```
+
+Without `--watch`, restart the `n8n` container yourself after pulls (`docker compose restart n8n`) so it reloads extensions.
+
+Production-style n8n with nodes baked into the image is still available via `docker-compose.prod.yml`.
 
 | Service    | URL                       |
 |------------|---------------------------|
@@ -208,7 +223,7 @@ shoble/
 │       └── src/
 │           ├── credentials/        # ShobleApi credential type
 │           └── nodes/              # GetStation, ListStations, ExecuteQuery
-├── docker-compose.yml              # Dev (volume-mounted pb + n8n, server runs locally)
+├── docker-compose.yml              # Dev (pb + n8n from stock image + bind-mounted custom nodes)
 ├── docker-compose.prod.yml         # Prod (all services containerised, named volumes)
 └── .env.example
 ```

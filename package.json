@@ -8,7 +8,8 @@
     "format": "biome format --write .",
     "check": "biome check --write .",
     "dev:server": "bun run --filter server dev",
-    "build:nodes": "bun run --filter n8n-nodes-shoble build"
+    "build:nodes": "bun run --filter n8n-nodes-shoble build",
+    "dev:nodes": "bun run --filter n8n-nodes-shoble dev"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
