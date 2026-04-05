@@ -1,0 +1,33 @@
+{
+  "name": "n8n-nodes-shoble",
+  "version": "0.1.0",
+  "description": "n8n custom nodes for Shoble – PocketBase stations and spectrum TCP queries",
+  "private": true,
+  "scripts": {
+    "build": "tsc && node -e \"const fs=require('fs');fs.copyFileSync('package.json','dist/package.json')\"",
+    "dev": "tsc --watch",
+    "lint": "biome lint src/",
+    "check": "biome check src/"
+  },
+  "main": "dist/index.js",
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/ShobleApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/GetStation.node.js",
+      "dist/nodes/ListStations.node.js",
+      "dist/nodes/ExecuteQuery.node.js"
+    ]
+  },
+  "dependencies": {
+    "pocketbase": "^0.25.0"
+  },
+  "peerDependencies": {
+    "n8n-workflow": ">=1"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  }
+}

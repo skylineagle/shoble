@@ -1,0 +1,7 @@
+node_modules/
+dist/
+pb_data/
+.env
+*.env.local
+.DS_Store
+data/

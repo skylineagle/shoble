@@ -1,0 +1,49 @@
+services:
+  pocketbase:
+    build:
+      context: packages/pocketbase
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "8090:8090"
+    volumes:
+      - pb_data:/pb/pb_data
+
+  server:
+    build:
+      context: packages/server
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - POCKETBASE_URL=http://pocketbase:8090
+      - SERVER_PORT=3000
+      - NODE_ENV=production
+    depends_on:
+      - pocketbase
+
+  n8n:
+    build:
+      context: .
+      dockerfile: packages/n8n-nodes/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=${N8N_HOST}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=${N8N_PROTOCOL:-https}
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=${N8N_BASIC_AUTH_USER}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD}
+      - WEBHOOK_URL=${N8N_PROTOCOL:-https}://${N8N_HOST}/
+    volumes:
+      - n8n_data:/home/node/.n8n
+    depends_on:
+      - pocketbase
+      - server
+
+volumes:
+  pb_data:
+  n8n_data:

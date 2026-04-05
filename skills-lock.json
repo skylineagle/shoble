@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "skills": {
+    "elysiajs": {
+      "source": "elysiajs/skills",
+      "sourceType": "github",
+      "computedHash": "55268e69a2c766ed67e56a0db57544f60cc52dba0c7f024a974baf965e525e1b"
+    },
+    "pocketbase": {
+      "source": "smithery.ai",
+      "sourceType": "well-known",
+      "computedHash": "ce9451357ca9b112e51ac3aa140ad7129c6711970534f334dcf75ccbc1493b85"
+    }
+  }
+}

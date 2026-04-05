@@ -1,0 +1,18 @@
+{
+  "name": "shoble",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "lint": "biome lint .",
+    "format": "biome format --write .",
+    "check": "biome check --write .",
+    "dev:server": "bun run --filter server dev",
+    "build:nodes": "bun run --filter n8n-nodes-shoble build"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/bun": "latest",
+    "typescript": "^5.7.0"
+  }
+}
