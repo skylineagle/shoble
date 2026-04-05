@@ -105,7 +105,8 @@ The server starts on http://localhost:3000 with hot-reload. Swagger UI is availa
 |------|-------------|
 | **Shoble: Get Station** | Fetch a single station by name with its system and spectrum details |
 | **Shoble: List Stations** | List all stations, optionally filtered by system name |
-| **Shoble: Execute Query** | Send a TCP query to a spectrum analyzer via a named station |
+| **Shoble: Execute Query** | Raw SCPI or PocketBase `station_queries` (list pick, form parameters from `parameter_defs`) |
+| **Shoble: Execute Query and Validate** | Same execution plus assertions; **pass** and **fail** outputs |
 
 ### Linting and formatting
 

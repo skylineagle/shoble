@@ -22,8 +22,28 @@ export interface Station extends RecordModel {
 }
 
 export async function getStationByName(name: string): Promise<Station> {
-  return pb.collection("stations").getFirstListItem<Station>(
-    pb.filter("name = {:name}", { name }),
-    { expand: "system,spectrum" }
-  );
+  return pb
+    .collection("stations")
+    .getFirstListItem<Station>(pb.filter("name = {:name}", { name }), {
+      expand: "system,spectrum",
+    });
+}
+
+export interface StationQueryRule extends RecordModel {
+  name: string;
+  station: string;
+  command_template: string;
+  parameter_defs: unknown;
+  response_schema: string;
+}
+
+export async function getStationQueryRule(
+  stationId: string,
+  queryName: string
+): Promise<StationQueryRule> {
+  return pb
+    .collection("station_queries")
+    .getFirstListItem<StationQueryRule>(
+      pb.filter("station = {:sid} && name = {:qname}", { sid: stationId, qname: queryName })
+    );
 }

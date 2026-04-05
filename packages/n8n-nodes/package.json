@@ -12,20 +12,19 @@
   "main": "dist/index.js",
   "n8n": {
     "n8nNodesApiVersion": 1,
-    "credentials": [
-      "dist/credentials/ShobleApi.credentials.js"
-    ],
+    "credentials": ["dist/credentials/ShobleApi.credentials.js"],
     "nodes": [
       "dist/nodes/GetStation.node.js",
       "dist/nodes/ListStations.node.js",
-      "dist/nodes/ExecuteQuery.node.js"
+      "dist/nodes/ExecuteQuery.node.js",
+      "dist/nodes/ExecuteQueryValidate.node.js"
     ]
   },
   "dependencies": {
     "pocketbase": "^0.25.0"
   },
   "peerDependencies": {
-    "n8n-workflow": ">=1"
+    "n8n-workflow": "1"
   },
   "devDependencies": {
     "typescript": "^5.7.0"

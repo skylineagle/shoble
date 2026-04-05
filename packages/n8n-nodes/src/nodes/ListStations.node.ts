@@ -63,9 +63,7 @@ export class ListStations implements INodeType {
     const systemName = this.getNodeParameter("systemName", 0) as string;
     const pageSize = this.getNodeParameter("pageSize", 0) as number;
 
-    const filter = systemName
-      ? pb.filter("system.name = {:systemName}", { systemName })
-      : "";
+    const filter = systemName ? pb.filter("system.name = {:systemName}", { systemName }) : "";
 
     const result = await pb.collection("stations").getList<Station>(1, pageSize, {
       expand: "system,spectrum",

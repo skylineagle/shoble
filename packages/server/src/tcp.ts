@@ -15,7 +15,8 @@ export async function tcpQuery(host: string, port: number, query: string): Promi
       port,
       socket: {
         open(socket) {
-          socket.write(`${query}\n`);
+          const line = query.replace(/\r?\n\s*$/u, "");
+          socket.write(`${line}\n`);
         },
         data(_socket, data) {
           buffer += data.toString();
